@@ -9,7 +9,7 @@ module tt_um_asiclab_example (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
-    output wire [7:0] uio_out,  // IOs: Output path
+    output reg [7:0] uio_out,  // IOs: Output path
     output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
     input  wire       clk,      // clock
@@ -19,7 +19,7 @@ module tt_um_asiclab_example (
   reg reset = ~rst_n;
   assign uio_out = 0;
   assign uio_oe = 0;
-  reg _unuse = &{ena, uio_in, 1'b0};
+  wire _unuse = &{ena, uio_in, 1'b0};
   always @ (posedge clk or posedge reset) begin
       if (reset) begin
           uo_out <= 0
